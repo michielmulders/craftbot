@@ -1,0 +1,40 @@
+Heroku app: https://blooming-inlet-61846.herokuapp.com/
+
+Tutorial van heroku website gevolgd:
+https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up
+
+Je hebt git nodig!
+
+PRE: Definieer 'Procfile' in root van app met deze lijn code:
+    web: node app -> zal webinstance maken en app starten
+
+1) Initialiseer git repo lokaal:
+    git init 
+
+2) git add . --> voeg alles toe aan commit
+3) git commit -m 'Initial Commit' -> Effectieve commit
+4) heroku create [name] -> detecteert app.js file en zal correct deployen
+5) git push heroku master -> Ready!
+
+Ga naar slack channel:
+https://slackbotdevcreations.slack.com/ 
+    -> kies app integrations
+    -> kies 'command'
+    -> vul api url (met juiste subroute in)
+    -> KLAAR!
+
+Wil je updaten?
+    - Schrijf code 
+        -> commit en push naar heroku 
+        -> herinstalleer app in channel: https://api.slack.com/apps/A529L5KE3/general?success=1 
+Meer info over data die met request mee gaat:
+https://api.slack.com/custom-integrations/outgoing-webhooks 
+
+Mongo DB opzetten: https://mlab.com/ -> michielmulders
+Gewoon object pushen -> geen schema nodig eig
+    - ConnectionString: mongodb://admin:craftball@ds111791.mlab.com:11791/craftbot
+    - Shell login command: mongo ds111791.mlab.com:11791/craftbot -u admin -p craftball (michiel gaat ook)
+
+// Logs voor craftball app op heroku: https://dashboard.heroku.com/apps/craftball/logs 
+
+// Inspiratie voor uitbreiding: https://stackoverflow.com/questions/42993602/slack-chat-postmessage-attachment-gives-no-text 

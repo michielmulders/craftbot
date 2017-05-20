@@ -1,0 +1,14 @@
+{
+  "name": "testbotv1",
+  "version": "0.0.1",
+  "description": "Just saying hello",
+  "main": "app.js",
+  "author": "Michiel Mulders",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.5",
+    "request": "^2.81.0"
+  }
+}

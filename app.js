@@ -53,7 +53,7 @@ app.post('/craftball', function(req, res, next) {
 /*
      Post score: add new score to MongoDB
 */
-app.post('/addScore', function(req, res, next) {
+app.post('/addScoreOriginal', function(req, res, next) {
     // Check if input is number
     let score = req.body.text.trim();
     if(isNaN(score)) { // Returns true if it is not a number
@@ -106,6 +106,60 @@ app.post('/addScore', function(req, res, next) {
     } else {
         return res.status(200).end();
     }
+});
+
+/*
+     Post score: add new score to MongoDB
+*/
+app.post('/addScore', function(req, res, next) {
+    // Check if input is number
+    let score = req.body.text.trim();
+    if(isNaN(score)) { // Returns true if it is not a number
+        return res.status(500).json({
+            title: "Not a number",
+            error: "Try again with a number like 25"
+        });
+    }
+
+    // Create craftball object with score and datestamp
+    const craftball = new Craftball({
+        score: score,
+        date: getDate() 
+    });
+    
+    // Send craftball score to MongoDB
+    craftball.save(function(err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        
+        // Create funny remark about how high score is 
+        const remarkAboutScore = (craftball.score >= 28)
+                ? 'Well played bitches!'
+                : 'What a shitty score...';
+
+        // Create Payload 
+        const botPayload = {
+            "response_type": "in_channel",
+            "text": "A Craftball score of " + craftball.score + " was added!",
+            "attachments": [
+                {
+                    "text": remarkAboutScore
+                }
+            ]
+        };
+
+        // To avoid loop and send response
+        var userName = req.body.user_name;
+        if(userName !== 'slackbot') {
+            return res.status(200).json(botPayload);
+        } else {
+            return res.status(200).end();
+        }
+    });
 });
 
 
